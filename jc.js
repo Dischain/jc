@@ -41,7 +41,7 @@ Jc.prototype.text = function(text) {
  * Set the innerHTML property value. By default, if an
  * argument not defined, returns the current innerHTML value
  *
- * @param {Strin} text
+ * @param {Strin} html
  * @returns {Jc|String}
  * @public
  */
@@ -197,7 +197,7 @@ Jc.prototype.append = function(node) {
  * a child of the current node. If parameter is the Jc 
  * instance, insert the first element from set
  *
- * @param {Jc|Element} node
+ * @param {Jc|Node} node
  * @returns {Jc}
  * @public
  */
@@ -246,7 +246,7 @@ Jc.prototype.remove = function(){
   });
 };
 
-/*                          Utils
+/*                          Events
 *********************************************************/
 
 /**
