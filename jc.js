@@ -1,3 +1,8 @@
+/**
+ * Jc is the simple and very small jQuery clone built for
+ * learning purposes.
+ */
+
 (function(window) {
 'use strict'
 
@@ -11,6 +16,15 @@ function Jc(elements) {
 
 /*                      Manipuation
 *********************************************************/
+
+/**
+ * Set the innerText property value. By default, if an
+ * argument not defined, returns the current innerText value
+ *
+ * @param {Strin} text
+ * @returns {Jc|String}
+ * @public
+ */
 Jc.prototype.text = function(text) {
   if (typeof text !== 'undefined') {
     return this.forEach(function(element) {
@@ -23,6 +37,14 @@ Jc.prototype.text = function(text) {
   }
 };
 
+/**
+ * Set the innerHTML property value. By default, if an
+ * argument not defined, returns the current innerHTML value
+ *
+ * @param {Strin} text
+ * @returns {Jc|String}
+ * @public
+ */
 Jc.prototype.html = function(html) {
   if (typeof html !== 'undefined') {
     this.forEach(function (element) {
@@ -37,6 +59,18 @@ Jc.prototype.html = function(html) {
   }
 };
 
+/**
+ * Set the given attrName of selected elements to the given
+ * value. If first argument is object literal, then set
+ * each field name to attribute name and corresponding 
+ * value to the attribute value. If the last argument is
+ * not defined,returns the attrName value.
+ *
+ * @param {Object|String} attrName
+ * @param {String} value
+ * @returns {Jc|String}
+ * @public
+ */
 Jc.prototype.attr = function(attrName, value) {
   if (this.isPlainObject(attrName)) {
     return this.forEach(function(element) {
@@ -48,19 +82,39 @@ Jc.prototype.attr = function(attrName, value) {
     return this.forEach(function(element) {
       element.setAttribute(attrName, value);
     });
-  } else if (typeof attrName ==='string' && typeof value === 'undefined')  {
+  } else if (typeof attrName ==='string' 
+      && typeof value === 'undefined')  {
     return this._mapOne(function(element) {
       return element.getAttribute(attrName);
     });
   }
 }
 
+/**
+ * Remove the given attribute from selected objects
+ *
+ * @param {String} attribute
+ * @returns {Jc}
+ * @public
+ */
 Jc.prototype.removeAttr = function(attribute) {
   return this.forEach(function(element) {
     element.removeAttribute(attribute);
   });
 };
 
+/**
+ * Set the given css property of selected elements to the given
+ * value. If first argument is object literal, then set
+ * each field name to css property name and corresponding 
+ * value to the property value. If the last argument is
+ * not defined,returns the css property name` value.
+ *
+ * @param {Object|String} name
+ * @param {String} value
+ * @returns {Jc|String}
+ * @public
+ */
 Jc.prototype.css = function(name, value) {
   if (this.isPlainObject(name)) {
     return this.forEach(function(element) {
@@ -79,6 +133,13 @@ Jc.prototype.css = function(name, value) {
   }
 }
 
+/**
+ * Add the given className to the selected elements
+ *
+ * @param {Strin} className
+ * @returns {Jc}
+ * @public
+ */
 Jc.prototype.addClass = function(className) {
   if (this[0].classList) {
     return this.forEach(function(element) {
@@ -91,6 +152,13 @@ Jc.prototype.addClass = function(className) {
   }
 };
 
+/**
+ * Remove the given className from the selected elements
+ *
+ * @param {String} className
+ * @returns {Jc}
+ * @public
+ */
 Jc.prototype.removeClass = function(className) {
   return this.forEach(function(element) {
     if (element.classList) {
@@ -105,33 +173,56 @@ Jc.prototype.removeClass = function(className) {
 };
 
 /**
- * @param {Jc | Node}
+ * Insert node, specified by the parameter, to the end 
+ * of each element in the set of selected elements. If
+ * parameter is the Jc instance, insert the first element 
+ * from set
+ *
+ * @param {Jc|Element} node
+ * @returns {Jc}
+ * @public
  */
-Jc.prototype.append = function(child) {
+Jc.prototype.append = function(node) {
   return this.forEach(function(element) {
-    if (child.length > 0) {
-      element.appendChild(child[0]);
+    if (node.length > 0) {
+      element.appendChild(node[0]);
     } else {
-      element.appendChild(child);
+      element.appendChild(node);
     }
   });
 };
 
 /**
- * @param {Jc | Node}
+ * Inserts the specified node before each selected node as 
+ * a child of the current node. If parameter is the Jc 
+ * instance, insert the first element from set
+ *
+ * @param {Jc|Element} node
+ * @returns {Jc}
+ * @public
  */
-Jc.prototype.prepend = function(child) {
+Jc.prototype.prepend = function(node) {
   return this.forEach(function(element) {
-    if (child.length > 0) {
-      element.insertBefore(child[0], element.firstChild);
+    if (node.length > 0) {
+      element.insertBefore(node[0], element.firstChild);
     } else {
-      element.insertBefore(child, element.firstChild);
+      element.insertBefore(node, element.firstChild);
     }
   });
 };
 
 /**
- * @param {Jc | Node}
+ * Returns the duplicate of the Jc object on which this
+ * method was called. You may also specify, whether the children
+ * should also be cloned, or false if not
+ *
+ * @param {Boolean} deep - true if the children of the 
+ * node should also be cloned, or false to clone only the 
+ * specified node.
+ *
+ * @param {Bolean} deep
+ * @returns {Jc} 
+ * @public
  */
 Jc.prototype.clone = function(deep) {
   let clonedNode = this._mapOne(function(element) {
@@ -141,6 +232,12 @@ Jc.prototype.clone = function(deep) {
   return new Jc([clonedNode]);
 }
 
+/**
+ * Removes the selected Jc object from the DOM
+ *
+ * @returns {Jc}
+ * @public
+ */
 Jc.prototype.remove = function(){
   return this.forEach(function(element) {
     return this._mapOne(function(element) {
