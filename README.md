@@ -44,7 +44,7 @@
 
 #### ```jc.css(name, value)```
 
-Работает так же, как и [jc.attr(attrName, value)](https://github.com/Dischain/jc/blob/master/README.md#jc.attrattrNamevalue)
+Работает так же, как и [jc.attr(attrName, value)](https://github.com/Dischain/jc#jcattrattrname-value)
 
 #### ```jc.addClass(className) ```
 
