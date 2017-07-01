@@ -4,11 +4,11 @@
  */
 
 (function(window) {
-'use strict'
+'use strict';
 
 function Jc(elements) {
   for (let i = 0; i < elements.length; i++) {
-    this[i] = elements[i]
+    this[i] = elements[i];
   }
 
   this.length = elements.length;
@@ -82,13 +82,13 @@ Jc.prototype.attr = function(attrName, value) {
     return this.forEach(function(element) {
       element.setAttribute(attrName, value);
     });
-  } else if (typeof attrName ==='string' 
-      && typeof value === 'undefined')  {
+  } else if (typeof attrName ==='string' &&
+      typeof value === 'undefined')  {
     return this._mapOne(function(element) {
       return element.getAttribute(attrName);
     });
   }
-}
+};
 
 /**
  * Remove the given attribute from selected objects
@@ -131,7 +131,7 @@ Jc.prototype.css = function(name, value) {
       return element.style[name];
     });
   }
-}
+};
 
 /**
  * Add the given className to the selected elements
@@ -226,11 +226,11 @@ Jc.prototype.prepend = function(node) {
  */
 Jc.prototype.clone = function(deep) {
   let clonedNode = this._mapOne(function(element) {
-    return element.cloneNode(deep)
+    return element.cloneNode(deep);
   });
   
   return new Jc([clonedNode]);
-}
+};
 
 /**
  * Removes the selected Jc object from the DOM
@@ -321,7 +321,7 @@ Jc.prototype.ready = function(callback) {
       }
     });
   }
-}
+};
 
 /*                          Utils
 *********************************************************/
@@ -417,7 +417,7 @@ let jc = {
     } else if (selector.length) {
       elements = selector;
     } else {
-      elements = [selector]
+      elements = [selector];
     }
   
     return new Jc(elements);
