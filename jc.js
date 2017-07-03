@@ -354,6 +354,16 @@ Jc.prototype.isPlainObject = function(obj) {
 };
 
 /**
+ * Converts inner set of selected elements to js array
+ *
+ * @returns {Array}
+ * @public
+ */
+Jc.prototype.toArray = function() {
+  return Array.prototype.slice.call(this);
+};
+
+/**
  * Process an array of selected elements by mapping it with
  * the given callback function onto a new array and return it.
  * The first argument to the callback is the array element,
@@ -393,6 +403,22 @@ Jc.prototype._mapOne = function(callback) {
   return result.length > 1 ? result : result[0];
 };
 
+/**
+ * Concatenate two given Jc objects with set of selected elements to 
+ * one.
+ *
+ * @param {Array} first Jc object
+ * @param {Array} second Jc object
+ * @returns {Jc}
+ * @private
+ */
+ Jc.prototype._concat = function(first, second) {
+  let firstArray  = first.toArray(),
+      secondArray = second.toArray();
+
+  return new Jc(firstArray.concat(secondArray));
+}
+
 /*                     Initial functions
 *********************************************************/
 
@@ -401,8 +427,9 @@ let jc = {
   /**
    * Select all Elements within the document that matches
    * given selector. It always put the selected elements
-   * into the Jc local array. Selector may be a css-selector,
-   * NodeList or HTMLCollection, or single Element.
+   * into the Jc local hash set, which is a simple js-object. Selector 
+   * may be a css-selector, NodeList or HTMLCollection, or single 
+   * Element.
    *
    * @param {String|NodeList|HTMLCollection|Element} 
    * @returns {Jc}

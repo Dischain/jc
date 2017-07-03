@@ -82,4 +82,4 @@
 
 ## Тесты
 
-Для решил попробовать [QUnit](https://qunitjs.com). Тесты расположены в папке [test](https://github.com/Dischain/jc/tree/master/test). Просто запустите [index.html](https://github.com/Dischain/jc/blob/master/test/index.html).
+Для тестов решил попробовать [QUnit](https://qunitjs.com). Тесты расположены в папке [test](https://github.com/Dischain/jc/tree/master/test). Просто запустите [index.html](https://github.com/Dischain/jc/blob/master/test/index.html).
