@@ -216,11 +216,8 @@ Jc.prototype.prepend = function(node) {
  * method was called. You may also specify, whether the children
  * should also be cloned, or false if not
  *
- * @param {Boolean} deep - true if the children of the 
- * node should also be cloned, or false to clone only the 
- * specified node.
- *
- * @param {Bolean} deep
+ * @param {Bolean} deep - true if the children of the node should 
+ * also be cloned, or false to clone only the specified node.
  * @returns {Jc} 
  * @public
  */
@@ -245,6 +242,75 @@ Jc.prototype.remove = function(){
     });
   });
 };
+
+/*                       Traversing
+*********************************************************/
+
+/**
+ * Returns new Jc object, constructed from an array of the next 
+ * sibliings of first selected element. Uses the given callback function
+ * to filter over the siblings.
+ *
+ * @param {Function} filtering function, which takes only the current
+ *         iterable element.
+ * @returns {Jc}
+ * @public
+ */
+Jc.prototype.nextSiblings = function(filterFunc) {
+  let element = this._mapOne(function(el) { return el; });
+
+  let nextSiblings = [];
+
+  while (element = element.nextSibling) {
+    if (filterFunc(element)) {
+      nextSiblings.push(element);
+    }
+  }
+
+  return new Jc(nextSiblings);
+}
+
+/**
+ * Returns new Jc object, constructed from an array of the previous 
+ * sibliings of first selected element. Uses the given callback function
+ * to filter over the siblings.
+ *
+ * @param {Function} filtering function, which takes only the current
+ *         iterable element.
+ * @returns {Jc}
+ * @public
+ */
+Jc.prototype.prevSiblings = function(filterFunc) {
+  let element = this._mapOne(function(el) { return el; });
+
+  let nextSiblings = [];
+
+  while (element = element.previousSibling) {
+    if (filterFunc(element)) {
+      nextSiblings.push(element);
+    }
+  }
+
+  return new Jc(nextSiblings);
+}
+
+/**
+ * Returns new Jc object, constructed from an array of all siblings of
+ * first selected element. Uses the given callback function
+ * to filter over the siblings.
+ *
+ * @param {Function} filtering function, which takes only the current
+ *         iterable element.
+ * @returns {Jc}
+ * @public
+ */
+Jc.prototype.allSiblings = function(filterFunc) {
+  return Jc.prototype._concat(
+         Jc.prototype.prevSiblings.call(this, filterFunc),
+         Jc.prototype.nextSiblings.call(this, filterFunc)
+         );
+}
+
 
 /*                          Events
 *********************************************************/
