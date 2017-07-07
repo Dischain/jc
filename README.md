@@ -1,4 +1,4 @@
-# jc.js - simple and small jQury clone
+# jc.js - simple and small jQuery clone
 
 [jc](https://github.com/Dischain/jc) - небольшой js-фреймворк для работы с css классами dom элементов.
 
