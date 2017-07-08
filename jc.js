@@ -268,7 +268,7 @@ Jc.prototype.nextSiblings = function(filterFunc) {
   }
 
   return new Jc(nextSiblings);
-}
+};
 
 /**
  * Returns new Jc object, constructed from an array of the previous 
@@ -292,7 +292,7 @@ Jc.prototype.prevSiblings = function(filterFunc) {
   }
 
   return new Jc(nextSiblings);
-}
+};
 
 /**
  * Returns new Jc object, constructed from an array of all siblings of
@@ -309,8 +309,79 @@ Jc.prototype.allSiblings = function(filterFunc) {
          Jc.prototype.prevSiblings.call(this, filterFunc),
          Jc.prototype.nextSiblings.call(this, filterFunc)
          );
-}
+};
 
+/**
+ * Returns the `x` coordinate relative to the entire document
+ * for the first element from selection.
+ * This function should work only for positioned elements.
+ *
+ * @return {Number}
+ * @public
+ */
+Jc.prototype.getPageX = function() {
+  return this._mapOne(function(el) {
+    if (el.offsetParent) {
+      return el.offsetLeft + this.getPageX(el.offsetParent);
+    } else {
+      return el.offsetLeft;
+    }
+  });
+};
+
+/**
+ * Returns the `y` coordinate relative to the entire document
+ * for the first element from selection.
+ * This function should work only for positioned elements.
+ *
+ * @return {Number}
+ * @public
+ */
+Jc.prototype.getPageY = function() {
+  return this._mapOne(function(el) {
+    if (el.offsetParent) {
+      return el.offsetTop + this.getPageY(el.offsetParent);
+    } else {
+      return el.offsetTop;
+    }
+  });
+};
+
+/**
+ * Returns the `x` positioning of a first element from selection
+ * relative to its parent element.
+ * This function should work only for positioned elements.
+ *
+ * @returns {Number}
+ * @public
+ */
+ Jc.prototype.getParentX = function() {
+  return this._mapOne(function(el) {
+    if (el.parentNode == el.offsetParent) {
+      return el.offsetLeft;
+    } else {
+      return this.getPageX(el) - this.getPageX(el.parentNode);
+    }
+  });
+ };
+
+ /**
+ * Returns the `y` positioning of a first element from selection
+ * relative to its parent element.
+ * This function should work only for positioned elements.
+ *
+ * @returns {Number}
+ * @public
+ */
+ Jc.prototype.getParentY = function() {
+  return this._mapOne(function(el) {
+    if (el.parentNode == el.offsetParent) {
+      return el.offsetTop;
+    } else {
+      return this.getPageY(el) - this.getPageY(el.parentNode);
+    }
+  });
+ };
 
 /*                          Events
 *********************************************************/
