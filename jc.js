@@ -311,6 +311,9 @@ Jc.prototype.allSiblings = function(filterFunc) {
          );
 };
 
+/*                         Positioning
+*********************************************************/
+
 /**
  * Returns the `x` coordinate relative to the entire document
  * for the first element from selection.
@@ -365,7 +368,7 @@ Jc.prototype.getPageY = function() {
   });
  };
 
- /**
+/**
  * Returns the `y` positioning of a first element from selection
  * relative to its parent element.
  * This function should work only for positioned elements.
@@ -373,7 +376,7 @@ Jc.prototype.getPageY = function() {
  * @returns {Number}
  * @public
  */
- Jc.prototype.getParentY = function() {
+Jc.prototype.getParentY = function() {
   return this._mapOne(function(el) {
     if (el.parentNode == el.offsetParent) {
       return el.offsetTop;
@@ -382,6 +385,62 @@ Jc.prototype.getPageY = function() {
     }
   });
  };
+
+/**
+ * Returns the `left` position of a first selected element. This function should
+ * work only for positioned elements.
+ *
+ * @returns {Number}
+ * @public
+ */
+Jc.prototype.getX = function(){
+  return this._mapOne(function(el) {
+    return parseInt(el.style.left);
+  });
+};
+
+/**
+ * Returns the `top` position of a first selected element. This function should
+ * work only for positioned elements.
+ *
+ * @returns {Number}
+ * @public
+ */
+Jc.prototype.getY = function(){
+  return this._mapOne(function(el) {
+    return parseInt(el.style.top);
+  });
+};
+
+/**
+ * Set the `left` of all selected elements. This function should work only for 
+ * positioned elements.
+ *
+ * @param {Number} value
+ * @param {String} unit
+ * @returns {Jc}
+ * @public
+ */
+Jc.prototype.setX = function(value, unit) {
+  return this.forEach(function(el) {
+    el.style.left = value + unit;
+  });
+};
+
+/**
+ * Set the `top` of all selected elements. This function should work only for 
+ * positioned elements.
+ *
+ * @param {Number} value
+ * @param {String} unit
+ * @returns {Jc}
+ * @public
+ */
+Jc.prototype.setY = function(value, unit) {
+  return this.forEach(function(el) {
+    el.style.top = value + unit;
+  });
+};
 
 /*                          Events
 *********************************************************/
